@@ -1,5 +1,18 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
+
+function assign_heading (paragraph: string, level: number): string {
+    if (level < 1 || level > 6) return "invalid level"   /* invalid heading level? */
+
+    const regex = /^#+ /         /* Any number of hash signs at the begining of a line and followed by a blank space */
+    
+	let heading = paragraph.match(regex)
+    if (heading === null) return "#".repeat(level).concat(" ", paragraph)
+    else return paragraph.replace(regex, "#".repeat(level).concat(" "))
+}
+
+
+
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -36,6 +49,9 @@ export default class MyPlugin extends Plugin {
 				new SampleModal(this.app).open();
 			}
 		});
+
+
+
 		// This adds an editor command that can perform some operation on the current editor instance
 		this.addCommand({
 			id: 'sample-editor-command',
@@ -45,6 +61,46 @@ export default class MyPlugin extends Plugin {
 				editor.replaceSelection('Sample Editor Command');
 			}
 		});
+
+
+
+		this.addCommand({
+			id: 'assign-h1',
+			name: 'level 1',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 1))
+			}
+		})
+
+		this.addCommand({
+			id: 'assign-h2',
+			name: 'Level 2',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 2))
+			}
+		})
+
+		this.addCommand({
+			id: 'assign-h3',
+			name: 'Level 3',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 3))
+			}
+		})
+
+
+
+
+
+
+
+
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
 			id: 'open-sample-modal-complex',
