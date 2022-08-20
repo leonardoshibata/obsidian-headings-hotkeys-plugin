@@ -72,7 +72,7 @@ export default class MyPlugin extends Plugin {
 				const line_content = editor.getLine(line_number);
 				editor.setLine(line_number, assign_heading(line_content, 1))
 			}
-		})
+		});
 
 		this.addCommand({
 			id: 'assign-h2',
@@ -82,7 +82,7 @@ export default class MyPlugin extends Plugin {
 				const line_content = editor.getLine(line_number);
 				editor.setLine(line_number, assign_heading(line_content, 2))
 			}
-		})
+		});
 
 		this.addCommand({
 			id: 'assign-h3',
@@ -92,7 +92,38 @@ export default class MyPlugin extends Plugin {
 				const line_content = editor.getLine(line_number);
 				editor.setLine(line_number, assign_heading(line_content, 3))
 			}
+		});
+
+		this.addCommand({
+			id: 'assign-h4',
+			name: 'Level 4',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 4))
+			}
+		});
+
+		this.addCommand({
+			id: 'assign-h5',
+			name: 'Level 5',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 5))
+			}
+		});
+
+		this.addCommand({
+			id: 'assign-h6',
+			name: 'Level 6',
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				const line_number = editor.getCursor().line;
+				const line_content = editor.getLine(line_number);
+				editor.setLine(line_number, assign_heading(line_content, 6))
+			}
 		})
+
 
 
 
